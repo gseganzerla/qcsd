@@ -45,28 +45,10 @@ describe("DeviceTest", () => {
   })
 
   test("Cannot Degrease Volume Lower Than 100%", () => {
-    const device = createDevice(<DeviceParams>{ volume: 5 })
+    const device = createDevice(<DeviceParams>{ volume: 4 })
 
-    device.decreaseVolume(5)
     device.decreaseVolume(5)
 
     expect(device.getVolume()).toBe(0)
   })
 })
-
-type TableParams = {
-  isOccupied: boolean
-  capacity: number
-}
-
-class Table {
-  public isOccupied: boolean
-  public capacity: number
-
-  constructor({ isOccupied, capacity }: TableParams) {
-    this.isOccupied = isOccupied
-    this.capacity = capacity
-  }
-}
-
-const table = new Table({ isOccupied: true, capacity: 4 })
