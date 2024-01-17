@@ -1,12 +1,19 @@
+import { DeviceParams } from "./Contracts/DeviceParams"
+
 export class Device {
-  constructor(
-    public readonly id: string,
-    private _isActive: boolean,
-    public readonly name: string,
-    public readonly supportsVolume: boolean,
-    public readonly type: string,
-    private volume: number
-  ) {}
+  public readonly id: string
+  private _isActive: boolean
+  public readonly name: string
+  public readonly type: string
+  private volume: number
+
+  constructor({ id, isActive, name, type, volume }: DeviceParams) {
+    this.id = id
+    this._isActive = isActive
+    this.name = name
+    this.type = type
+    this.volume = volume
+  }
 
   public isActive(): boolean {
     return this._isActive
@@ -26,7 +33,7 @@ export class Device {
     if (this.volume - value <= 0) {
       this.volume = 0
 
-      return 
+      return
     }
 
     this.volume -= value

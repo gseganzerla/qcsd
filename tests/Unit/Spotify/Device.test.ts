@@ -1,19 +1,19 @@
+import { DeviceParams } from "../../../src/Spotify/Contracts/DeviceParams"
 import { Device } from "../../../src/Spotify/Device"
 
 const createDevice = ({
   id = "hash",
   name = "Echo Dot",
-  type = "Speaker",
+  type = "speaker",
   volume = 100,
-  supportsVolume = true,
-  isActive = true,
-} = {}): Device => {
-  return new Device(id, isActive, name, supportsVolume, type, volume)
+  isActive = false,
+}: DeviceParams): Device => {
+  return new Device({ id, name, type, volume, isActive })
 }
 
 describe("DeviceTest", () => {
   test("Active Device", () => {
-    const device = createDevice()
+    const device = createDevice(<DeviceParams>{})
 
     device.active()
 
@@ -21,7 +21,7 @@ describe("DeviceTest", () => {
   })
 
   test("Increase Volume", () => {
-    const device = createDevice({volume: 50})
+    const device = createDevice(<DeviceParams>{ volume: 50 })
 
     device.increaseVolume(5)
 
@@ -29,7 +29,7 @@ describe("DeviceTest", () => {
   })
 
   test("Cannot Increase Volume Greater Than 100%", () => {
-    const device = createDevice({volume: 100})
+    const device = createDevice(<DeviceParams>{ volume: 100 })
 
     device.increaseVolume(5)
 
@@ -37,7 +37,7 @@ describe("DeviceTest", () => {
   })
 
   test("Degrease Volume", () => {
-    const device = createDevice({volume: 50})
+    const device = createDevice(<DeviceParams>{ volume: 50 })
 
     device.decreaseVolume(5)
 
@@ -45,13 +45,28 @@ describe("DeviceTest", () => {
   })
 
   test("Cannot Degrease Volume Lower Than 100%", () => {
-    const device = createDevice({volume: 5})
+    const device = createDevice(<DeviceParams>{ volume: 5 })
 
     device.decreaseVolume(5)
     device.decreaseVolume(5)
 
     expect(device.getVolume()).toBe(0)
   })
-
-  
 })
+
+type TableParams = {
+  isOccupied: boolean
+  capacity: number
+}
+
+class Table {
+  public isOccupied: boolean
+  public capacity: number
+
+  constructor({ isOccupied, capacity }: TableParams) {
+    this.isOccupied = isOccupied
+    this.capacity = capacity
+  }
+}
+
+const table = new Table({ isOccupied: true, capacity: 4 })
