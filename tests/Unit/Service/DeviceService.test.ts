@@ -11,6 +11,7 @@ jest.mock("../../../src/Service/HttpService", () => {
         data: devicesData,
       })
     ),
+    put: jest.fn()
   }
 })
 
