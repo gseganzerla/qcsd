@@ -1,4 +1,5 @@
 import { Device } from "../Spotify/Device"
+import { TransferPlayback } from "../types/TransferPlayback"
 import http from "./HttpService"
 
 interface DevicesResponse {
@@ -12,5 +13,12 @@ export class DeviceService {
     } = await http.get<DevicesResponse>("/me/player/devices")
 
     return devices
+  }
+
+  async transferTo(id: string): Promise<void> {
+    http.put("/me/player", <TransferPlayback>{
+      device_ids: [id],
+      play: true,
+    })
   }
 }

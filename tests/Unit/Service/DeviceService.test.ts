@@ -1,19 +1,33 @@
 import { DeviceService } from "../../../src/Service/DeviceService"
+import { Device } from "../../../src/Spotify/Device"
 import devicesData from "../../data/devices.json"
+import http from "../../../src/Service/HttpService"
+import { TransferPlayback } from "../../../src/types/TransferPlayback"
 
-jest.mock("../../../src/Service/DeviceService")
-const MockedService = DeviceService as jest.MockedClass<typeof DeviceService>
+jest.mock("../../../src/Service/HttpService", () => {
+  return {
+    get: jest.fn(() =>
+      Promise.resolve({
+        data: devicesData,
+      })
+    ),
+  }
+})
 
 describe("DeviceServiceTest", () => {
-  test("test find all", () => {
-    MockedService.mockImplementation(() => {
-      return {
-        findAll: jest.fn().mockReturnValue(devicesData.devices),
-      }
+  test("test find all devices", async () => {
+    const devices = await new DeviceService().findAll()
+
+    expect(devicesData.devices).toEqual(devices)
+  })
+
+  test("test transfer to ", () => {
+    const service = new DeviceService()
+    service.transferTo("fake-id")
+
+    expect(http.put).toHaveBeenCalledWith("/me/player", <TransferPlayback>{
+      device_ids: ["fake-id"],
+      play: true,
     })
-
-    const devices = new DeviceService().findAll()
-
-    expect(devices).toEqual(devicesData.devices)
   })
 })
