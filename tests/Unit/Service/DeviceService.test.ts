@@ -27,10 +27,11 @@ describe("DeviceServiceTest", () => {
 
   test("test transfer to ", () => {
     const service = new DeviceService()
-    service.transferTo("fake-id")
+    const device = createDevice(<DeviceParams>{})
+    service.transferTo(device)
 
     expect(http.put).toHaveBeenCalledWith("/me/player", <TransferPlayback>{
-      device_ids: ["fake-id"],
+      device_ids: [device.id],
       play: true,
     })
   })

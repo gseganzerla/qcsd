@@ -16,10 +16,12 @@ export class DeviceService {
     return devices
   }
 
-  async transferTo(id: string): Promise<void> {
+  async transferTo(device: Device): Promise<void> {
+    device.active()
+    
     http.put("/me/player", <TransferPlayback>{
-      device_ids: [id],
-      play: true,
+      device_ids: [device.id],
+      play: device.isActive(),
     })
   }
 
