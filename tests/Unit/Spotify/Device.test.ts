@@ -1,7 +1,7 @@
 import { DeviceParams } from "../../../src/Spotify/Contracts/DeviceParams"
 import { Device } from "../../../src/Spotify/Device"
 
-const createDevice = ({
+export const createDevice = ({
   id = "hash",
   name = "Echo Dot",
   type = "speaker",
