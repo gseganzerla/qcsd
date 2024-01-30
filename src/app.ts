@@ -2,10 +2,12 @@ import { Command } from 'commander'
 import { DeviceService } from './Service/DeviceService'
 import { Device } from './Spotify/Device'
 import { DeviceParams } from './Spotify/Contracts/DeviceParams'
+import { list } from './Commands/list'
+import { transfer } from './Commands/transfer'
 
 
 const qcsd = new Command
-const service = new DeviceService()
+
 
 
 qcsd
@@ -14,23 +16,11 @@ qcsd
 
 
 qcsd.command('list')
-    .action(async () => {
-        console.log(await service.findAll())
-    })
+    .action(list)
     .description('list all devices available')
 
 qcsd.command('transfer <string>')
-    .action(async (id: string) => {
-
-        const device = new Device(<DeviceParams>{
-            id,
-            isActive: false,
-            type: 'Computer',
-            volume: 70,
-            name: "INspiron"
-        })
-
-        service.transferTo(device)
-    }).description('name of the device')
+    .action((id: string) => transfer(id))
+    .description('name of the device')
 
 qcsd.parse(process.argv)
