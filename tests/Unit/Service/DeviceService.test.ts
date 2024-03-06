@@ -11,7 +11,7 @@ jest.mock("../../../src/Service/HttpService", () => {
   return {
     get: jest.fn(() =>
       Promise.resolve({
-        data: devicesData.devices,
+        data: devicesData,
       })
     ),
     put: jest.fn(),

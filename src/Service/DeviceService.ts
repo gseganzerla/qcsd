@@ -11,9 +11,10 @@ interface DevicesResponse {
 
 export class DeviceService {
   async findAll(): Promise<DevicesResponse[]> {
-    const {data: devices} = await http.get<DevicesResponse[]>("/me/player/devices")
+    const {data} = await http.get<DevicesResponse[]>("/me/player/devices")
 
-    return devices
+    // @ts-ignore
+    return data.devices
   }
 
   async transferTo(device: Device): Promise<void> {
