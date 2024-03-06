@@ -18,7 +18,7 @@ export class LoginService {
             grant_type: "authorization_code",
             code,
             redirect_uri: process.env.REDIRECT_URI,
-            code_verifier: '7KYsbXdINp4aeobAsSIjsfRQRoL2Pm8U7GglXpRrcElIBUxZQMlsBXTEyrHaQM2r',
+            code_verifier: process.env.CODE_VERIFIER,
 
         }, {
             headers: {
@@ -31,7 +31,7 @@ export class LoginService {
     }
 
 
-    async getCode(): Promise<void> {
+    async getCode(): Promise<string> {
         const scope = 'user-read-playback-state user-modify-playback-state app-remote-control streaming';
 
 
@@ -48,7 +48,7 @@ export class LoginService {
         const authUrl = new URL(
             `https://accounts.spotify.com/authorize?response_type=${params.response_type}&client_id=${params.client_id}&scope=${scope}&code_challenge_method=${params.code_challenge_method}&code_challenge=${params.code_challenge}&redirect_uri=${params.redirect_uri}`);
 
-        console.log(authUrl.toString())
+        return authUrl.toString()
     }
 
 

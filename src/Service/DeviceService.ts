@@ -1,19 +1,20 @@
+
 import { Device } from "../Spotify/Device"
+import { DeviceResponseData } from "../types/Services/DeviceApiResponse"
 import { TransferPlayback } from "../types/TransferPlayback"
 import { VolumeSettings } from "../types/VolumeSettings"
 import http from "./HttpService"
 
 interface DevicesResponse {
-  devices: Device[]
+  devices: DeviceResponseData[]
 }
 
 export class DeviceService {
-  async findAll(): Promise<Device[]> {
-    const {
-      data: { devices },
-    } = await http.get<DevicesResponse>("/me/player/devices")
+  async findAll(): Promise<DevicesResponse[]> {
+    const {data} = await http.get<DevicesResponse[]>("/me/player/devices")
 
-    return devices
+    // @ts-ignore
+    return data.devices
   }
 
   async transferTo(device: Device): Promise<void> {
