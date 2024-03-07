@@ -5,6 +5,7 @@ import { DeviceParams } from './Spotify/Contracts/DeviceParams'
 import { list } from './Commands/list'
 import { transfer } from './Commands/transfer'
 import { login } from './Commands/login'
+import { config } from './Commands/config'
 
 
 const qcsd = new Command
@@ -27,5 +28,9 @@ qcsd.command('transfer <string>')
 qcsd.command('login')
     .action(login)
     .description('Sing in into the spotify api')
+
+qcsd.command('config')
+    .option('--client-id <clientId>', 'Set your client ID')
+    .action((options) => config(options))
 
 qcsd.parse(process.argv)

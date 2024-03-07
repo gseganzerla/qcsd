@@ -3,22 +3,22 @@ import { HasherService } from "../Hasers/HashService.js";
 import dotenv from 'dotenv'
 import fs from 'fs'
 import { log } from "console";
+import { ConfigService } from "../ConfigService.js";
 
-dotenv.config({ path: '.env' })
 
 
 
 export class LoginService {
 
     async login(code: string): Promise<void> {
-
+        const {clientId, redirectUrl, codeVerifier} = new ConfigService().read()
 
         const response = await axios.post("https://accounts.spotify.com/api/token", {
-            client_id: process.env.CLIENT_ID,
+            client_id: clientId,
             grant_type: "authorization_code",
             code,
-            redirect_uri: process.env.REDIRECT_URI,
-            code_verifier: process.env.CODE_VERIFIER,
+            redirect_uri: redirectUrl,
+            code_verifier: codeVerifier,
 
         }, {
             headers: {
@@ -33,15 +33,15 @@ export class LoginService {
 
     async getCode(): Promise<string> {
         const scope = 'user-read-playback-state user-modify-playback-state app-remote-control streaming';
-
+        const {clientId, redirectUrl} = new ConfigService().read()
 
         const params = {
             response_type: 'code',
-            client_id: process.env.CLIENT_ID,
+            client_id: clientId,
             scope,
             code_challenge_method: 'S256',
             code_challenge: await HasherService.getHash(),
-            redirect_uri: process.env.REDIRECT_URI,
+            redirect_uri: redirectUrl,
         }
 
 
