@@ -4,8 +4,9 @@
   "description": "A simple spotify cli to change devices",
   "repository": "sss",
   "bin": {
-    "qcsd": "build/app.js"
+    "qcsd": "build/qcsd.js"
   },
+  "main": "build/qcsd.js",
   "author": "gseganzerla",
   "license": "MIT",
   "scripts": {

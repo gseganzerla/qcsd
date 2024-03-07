@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 import { Command } from 'commander'
 import { DeviceService } from './Service/DeviceService'
 import { Device } from './Spotify/Device'
@@ -18,7 +19,10 @@ qcsd
 
 
 qcsd.command('list')
-    .action(list)
+    .action(() => {
+        console.log(process.env.SNAP);
+        
+    })
     .description('list all devices available')
 
 qcsd.command('transfer <string>')
