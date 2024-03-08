@@ -1,0 +1,24 @@
+{
+  "devices": [
+    {
+      "id": "e3c9586ce4bace151d64d85a0569f55e0f0ebf14",
+      "is_active": false,
+      "is_private_session": false,
+      "is_restricted": false,
+      "name": "Inspiron",
+      "type": "Computer",
+      "volume_percent": 54,
+      "supports_volume": true
+    },
+    {
+      "id": "ae982c95-94e1-4ba2-b331-f82fcd8ef48d_amzn_1",
+      "is_active": false,
+      "is_private_session": false,
+      "is_restricted": false,
+      "name": "Echo Dot de Guilherme",
+      "type": "Speaker",
+      "volume_percent": 32,
+      "supports_volume": true
+    }
+  ]
+}
