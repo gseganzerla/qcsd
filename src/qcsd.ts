@@ -19,10 +19,7 @@ qcsd
 
 
 qcsd.command('list')
-    .action(() => {
-        console.log(process.env.SNAP);
-        
-    })
+    .action(list)
     .description('list all devices available')
 
 qcsd.command('transfer <string>')

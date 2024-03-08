@@ -1,8 +1,9 @@
 import { Config } from "../types/Config";
 import fs from 'fs'
+import path from 'path'
 
 export class ConfigService {
-    path: string = 'config/config.json'
+    path: string = path.join(__dirname, '../../config/', 'config.json')
 
     write({clientId}: Config) {
         
