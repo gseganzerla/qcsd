@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 import { Command } from 'commander'
 import { DeviceService } from './Service/DeviceService'
 import { Device } from './Spotify/Device'
